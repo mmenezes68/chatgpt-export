@@ -1,0 +1,64 @@
+name: ABNT pipeline (lint + build)
+
+on:
+  push:
+  pull_request:
+    paths:
+      - 'projeto-obras/scripts-abnt/**'
+      - 'projeto-obras/docs/**'
+      - 'projeto-obras/obras/**'
+      - 'Makefile'
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup dependencies (Pandoc + TeX)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-xetex texlive-latex-extra texlive-fonts-recommended
+
+      - name: Lint shell scripts
+        uses: ludeeus/action-shellcheck@2.0.0
+        with:
+          scandir: 'projeto-obras/scripts-abnt/bin'
+
+      - name: Verify sample chapter (if exists)
+        run: |
+          set -eux
+          BIN=projeto-obras/scripts-abnt/bin
+          # tente detectar um capítulo PT real
+          CAP_DIR="$(find projeto-obras/obras -type d -path '*/pt/01_capitulos/*' -mindepth 5 -maxdepth 5 -print -quit || true)"
+          if [ -n "$CAP_DIR" ]; then
+            "$BIN/verify_md.sh" "$CAP_DIR"
+          else
+            echo "Nenhum capítulo PT encontrado no repo; só lint."
+          fi
+
+      - name: Try build PT (best effort)
+        run: |
+          set -eux
+          BIN=projeto-obras/scripts-abnt/bin
+          if [ -n "${PT_OBRA_DIR:-}" ] && [ -n "${PT_CAP_DIR:-}" ]; then
+            "$BIN/relatorio_full.sh" \
+              --obra  "$PT_OBRA_DIR" \
+              --capitulos "$PT_CAP_DIR" \
+              --title "Relatório de Leitura (CI)" \
+              --author "CI" \
+              --advisor "CI" \
+              --out "./Relatorio_PT_CI.pdf" || true
+          else
+            echo "Sem variáveis PT_OBRA_DIR/PT_CAP_DIR para build real — pulando build."
+          fi
+
+      - name: Upload (se gerou)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-ci
+          path: Relatorio_PT_CI.pdf
+          if-no-files-found: ignore
