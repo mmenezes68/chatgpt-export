@@ -1,0 +1,3 @@
+# Resumo
+> (Escreva aqui um resumo conciso do relatório em português — ~150–250 palavras.)
+**Palavras-chave:** …
