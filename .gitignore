@@ -26,12 +26,16 @@
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+
+# PDFs - ignora todos, exceto os finais
 *.pdf
+!relatorio_final.pdf
 
 # Diretórios temporários
 /tmp/
 /var/tmp/
 /temp/
+/cache/
 /.cache/
 
 # Node/Obsidian (se houver)
