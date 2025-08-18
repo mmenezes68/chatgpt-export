@@ -1,0 +1,42 @@
+# ==========================
+# Projeto GOVPRO - Caderno
+# ==========================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Arquivos de backup
+*.bak
+*.tmp
+*~
+*.swp
+*.swo
+*.orig
+
+# Pandoc / LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.pdf
+
+# Diretórios temporários
+/tmp/
+/var/tmp/
+/temp/
+/.cache/
+
+# Node/Obsidian (se houver)
+node_modules/
+.obsidian/
+
+# Arquivos de build locais
+relatorio_*/
