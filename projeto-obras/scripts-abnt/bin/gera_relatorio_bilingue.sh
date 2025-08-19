@@ -1,3 +1,4 @@
+# shellcheck disable=SC2034
 #!/usr/bin/env bash
 # Gera PT e, se existir conteúdo, também EN (compatível com bash 3.2 do macOS)
 set -euo pipefail
