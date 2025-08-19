@@ -1,0 +1,9 @@
+# Gerado automaticamente por scripts/generate_obras_index.sh
+# Base OneDrive: /Users/marcosmenezes/Library/CloudStorage/OneDrive-Pessoal/USP/Projeto_ICB_Consciência/ICB-USP_Consciência
+obras:
+  - obra: "01_The_Character_of_Consciousness"
+    path_pt: "/Users/marcosmenezes/Library/CloudStorage/OneDrive-Pessoal/USP/Projeto_ICB_Consciência/ICB-USP_Consciência/01_The_Character_of_Consciousness"
+    path_en: "/Users/marcosmenezes/Library/CloudStorage/OneDrive-Pessoal/USP/Projeto_ICB_Consciência/ICB-USP_Consciência/01_The_Character_of_Consciousness/en/01_chapters"
+    chapters_pt: 6
+    chapters_en: 6
+    last_updated: "2025-08-19 15:48:03"
