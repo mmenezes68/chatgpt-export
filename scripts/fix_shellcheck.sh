@@ -2,36 +2,37 @@
 set -euo pipefail
 
 fix_file() {
-  local file="$1" rule="$2"
+  local file="$1" rules="$2"
   [[ -f "$file" ]] || { echo "Arquivo não encontrado: $file"; return 1; }
 
-  # primeira linha atual
-  local first; first="$(head -n1 "$file" || true)"
+  local first rest shebang body head5 disable_line body_no_disable new_content
+  first="$(head -n1 "$file" || true)"
+  rest="$(tail -n +2 "$file" 2>/dev/null || true)"
 
-  # preserva shebang existente ou define um
-  local shebang body
   if [[ "$first" =~ ^#! ]]; then
     shebang="$first"
-    body="$(tail -n +2 "$file" || true)"
+    body="$rest"
   else
     shebang='#!/bin/bash'
     body="$(cat "$file")"
   fi
 
-  # evita duplicar o disable se já existir nas 5 primeiras linhas
-  if head -n5 "$file" | grep -q "shellcheck disable=${rule}"; then
-    printf "%s\n%s\n" "$shebang" "$body" > "$file.tmp"
+  disable_line="# shellcheck disable=$(echo "$rules" | sed 's/[ ,]\+/,/g')"
+
+  head5="$(printf "%s\n%s\n" "$shebang" "$body" | head -n5)"
+  if printf "%s" "$head5" | grep -q 'shellcheck disable='; then
+    body_no_disable="$(printf "%s\n%s\n" "$shebang" "$body" | tail -n +2 | sed '/shellcheck disable=/d')"
+    new_content="$(printf "%s\n%s\n%s\n" "$shebang" "$disable_line" "$body_no_disable")"
   else
-    printf "%s\n# shellcheck disable=%s\n%s\n" "$shebang" "$rule" "$body" > "$file.tmp"
+    new_content="$(printf "%s\n%s\n%s\n" "$shebang" "$disable_line" "$body")"
   fi
 
-  mv "$file.tmp" "$file"
+  printf "%s" "$new_content" > "$file"
   chmod +x "$file"
-  echo "Corrigido: $file (rule ${rule})"
+  echo "Corrigido: $file  →  $disable_line"
 }
 
-# Corrigir arquivos apontados no log do CI
-fix_file "projeto-obras/scripts-abnt/bin/relatorio_full.sh" "SC2020"
+fix_file "projeto-obras/scripts-abnt/bin/relatorio_full.sh" "SC2020,SC2016"
 fix_file "projeto-obras/scripts-abnt/bin/gera_relatorio_bilingue.sh" "SC2034"
 
-echo "Arquivos corrigidos."
+echo "OK: ajustes aplicados."

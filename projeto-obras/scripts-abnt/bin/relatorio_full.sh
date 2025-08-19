@@ -1,5 +1,5 @@
 #!/bin/bash
-# shellcheck disable=SC2020
+# shellcheck disable=SC2020,SC2016
 #!/usr/bin/env bash
 set -euo pipefail
 
