@@ -1,3 +1,4 @@
+#!/bin/bash
 # shellcheck disable=SC2020
 #!/usr/bin/env bash
 set -euo pipefail
