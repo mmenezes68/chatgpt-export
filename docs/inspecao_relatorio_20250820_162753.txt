@@ -1,0 +1,485 @@
+
+==== Contexto ====
+Repo: /Users/marcosmenezes/chatgpt-export
+Gerado em: Qua 20 Ago 2025 16:27:53 -03
+
+
+==== Metodologia (docs/metodologia.md) ====
+Caminho: docs/metodologia.md
+-- Trechos com palavras-chave (ABNT|relat(ó|o)rio|bil[ií]ngue|LaTeX|Pandoc):
+74:-   Relatórios no estilo ABNT são gerados via scripts em
+77:    -   `relatorio_full.sh` → relatório completo de uma obra.\
+78:    -   `gera_relatorio_bilingue.sh` → relatório bilíngue (pt/en).
+89:6.  Gerar relatório ABNT com os scripts disponíveis.\
+
+==== Atas (docs/atas/*.md) ====
+/Users/marcosmenezes/chatgpt-export/docs/atas/ata_001.md
+/Users/marcosmenezes/chatgpt-export/docs/atas/ata_002.md
+/Users/marcosmenezes/chatgpt-export/docs/atas/ata_003.md
+/Users/marcosmenezes/chatgpt-export/docs/atas/ata_004.md
+
+-- /Users/marcosmenezes/chatgpt-export/docs/atas/ata_001.md
+6:Esta documentação resume as decisões e tarefas discutidas até o momento para ajustar o repositório `01_The_Character_of_Consciousness` e o processo de produção de notas em PT/EN no contexto do projeto Obsidian.
+
+-- /Users/marcosmenezes/chatgpt-export/docs/atas/ata_002.md
+
+-- /Users/marcosmenezes/chatgpt-export/docs/atas/ata_003.md
+15:  - Estabelecido que **todos os arquivos `.md` da obra passarão por revisão completa**, assegurando formatação padronizada para uso no **Obsidian**.
+16:  - Confirmado que, ao final, todos os capítulos serão **consolidados em um relatório único**, estruturado segundo as **normas da ABNT/USP**.
+17:  - O relatório permitirá **navegação integrada no Obsidian**, com interlinks entre ideias do mesmo capítulo, entre capítulos da mesma obra e também entre obras distintas.
+22:  - Planejar a geração automática dos relatórios ABNT monolíngue e bilíngue a partir dos `.md`.
+31:Ficou estabelecido que todos os capítulos terão seus arquivos `.md` revisados e formatados de acordo com o modelo padronizado, garantindo utilização plena no **Obsidian**.  
+34:Ao final, os capítulos serão **consolidados em um relatório conforme as normas da ABNT/USP**, de forma a servir tanto como documento acadêmico formal quanto como base de conhecimento navegável no Obsidian.
+
+-- /Users/marcosmenezes/chatgpt-export/docs/atas/ata_004.md
+15:  - Estabelecido que **todos os arquivos `.md` da obra passarão por revisão completa**, assegurando formatação padronizada para uso no **Obsidian**.
+16:  - Confirmado que, ao final, todos os capítulos serão **consolidados em um relatório único**, estruturado segundo as **normas da ABNT/USP**.
+17:  - O relatório permitirá **navegação integrada no Obsidian**, com interlinks entre ideias do mesmo capítulo, entre capítulos da mesma obra e também entre obras distintas.
+22:  - Planejar a geração automática dos relatórios ABNT monolíngue e bilíngue a partir dos `.md`.
+31:Ficou estabelecido que todos os capítulos terão seus arquivos `.md` revisados e formatados de acordo com o modelo padronizado, garantindo utilização plena no **Obsidian**.  
+34:Ao final, os capítulos serão **consolidados em um relatório conforme as normas da ABNT/USP**, de forma a servir tanto como documento acadêmico formal quanto como base de conhecimento navegável no Obsidian.
+
+
+==== Scripts de relatório (projeto-obras/scripts-abnt/bin) ====
+cria_intro_cap.sh
+cria_obra.sh
+gera_relatorio_bilingue.sh
+gera_relatorio.sh
+normalize_text.sh
+normalize_utf8.sh
+normalize_vars.sh
+README.md
+reencode_utf8.sh
+relatorio_full.sh
+seed_en_from_pt.sh
+verify_md.sh
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/bin/cria_intro_cap.sh
+#!/usr/bin/env bash
+set -euo pipefail
+if [ $# -lt 3 ]; then
+  echo "uso: $0 CAMINHO_BASE lingua(pt|en) NOME_DA_PASTA_DO_CAPITULO"
+  exit 2
+fi
+BASE="$1"; LANG="$2"; CAP="$3"
+case "$LANG" in
+  pt) CAPDIR="$BASE/pt/01_capitulos/$CAP" ;;
+  en) CAPDIR="$BASE/en/01_chapters/$CAP"  ;;
+  *)  echo "lingua deve ser pt ou en"; exit 2;;
+esac
+mkdir -p "$CAPDIR"
+FILE="$CAPDIR/00_intro.md"
+if [ "$LANG" = "pt" ]; then
+  cat > "$FILE" <<'MD'
+# Introdução ao capítulo
+Este capítulo apresenta o tema, objetivos de leitura e a lógica dos tópicos a seguir.
+- **Contexto:** …
+- **Objetivos:** …
+- **Estrutura:** …
+
+> Observação: esta introdução serve para situar o leitor antes dos itens detalhados.
+MD
+else
+  cat > "$FILE" <<'MD'
+# Chapter introduction
+This chapter introduces the topic, reading goals, and the logic of the upcoming sections.
+- **Context:** …
+- **Goals:** …
+>>> Ocorrências (relat|tex|pdf|pandoc|latex|abnt):
+19:- **Contexto:** …
+29:- **Context:** …
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/bin/cria_obra.sh
+#!/usr/bin/env bash
+set -euo pipefail
+[ $# -eq 1 ] || { echo "uso: $0 Nome_da_Obra"; exit 2; }
+OBRA="projeto-obras/obras/$1"
+mkdir -p "$OBRA/raw"
+mkdir -p "$OBRA/pt/00_front-matter" "$OBRA/pt/01_capitulos" "$OBRA/pt/02_notas" "$OBRA/pt/99_back-matter"
+mkdir -p "$OBRA/en/00_front-matter" "$OBRA/en/01_chapters"  "$OBRA/en/02_notes" "$OBRA/en/99_back-matter"
+
+cat > "$OBRA/pt/00_front-matter/Resumo.md" <<'MD'
+# Resumo
+> (Escreva aqui um resumo conciso do relatório em português — ~150–250 palavras.)
+**Palavras-chave:** …
+MD
+
+cat > "$OBRA/en/00_front-matter/Abstract.md" <<'MD'
+# Abstract
+> (Write here a concise abstract in English — ~150–250 words.)
+**Keywords:** …
+MD
+
+echo "OK: esqueleto criado em $OBRA"
+>>> Ocorrências (relat|tex|pdf|pandoc|latex|abnt):
+11:> (Escreva aqui um resumo conciso do relatório em português — ~150–250 palavras.)
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/bin/gera_relatorio_bilingue.sh
+#!/bin/bash
+# shellcheck disable=SC2034
+#!/usr/bin/env bash
+# Gera PT e, se existir conteúdo, também EN (compatível com bash 3.2 do macOS)
+set -euo pipefail
+
+BASE="$(cd "$(dirname "$0")/.." && pwd)"
+OUT_DIR="${OUT_DIR:-$HOME}"
+
+TITLE_PT="${TITLE_PT:-Relatório de Leitura — (PT)}"
+TITLE_EN="${TITLE_EN:-Reading Report — (EN)}"
+
+# repassa todos os args ao gerador de um idioma
+ARGS=( "$@" )
+
+# --- sempre gera PT ---
+export LANG=pt_BR.UTF-8
+export LC_ALL=pt_BR.UTF-8
+"$BASE/bin/relatorio_full.sh" "${ARGS[@]}" \
+  --title "$TITLE_PT" \
+  --out   "$OUT_DIR/Relatorio_PT.pdf"
+
+# --- só gera EN se houver diretório/arquivos EN ---
+# extraímos --obra do argv para checar a árvore EN
+OBRA_DIR=""
+i=0
+while [ $i -lt $# ]; do
+  arg="${!i+1}" # dummy para calhar com bash 3.2 (não usar)
+  case "${!i}" in
+    --obra)
+>>> Ocorrências (relat|tex|pdf|pandoc|latex|abnt):
+19:"$BASE/bin/relatorio_full.sh" "${ARGS[@]}" \
+21:  --out   "$OUT_DIR/Relatorio_PT.pdf"
+48:  "$BASE/bin/relatorio_full.sh" "${ARGS[@]}" \
+50:    --out   "$OUT_DIR/Report_EN.pdf"
+51:  echo "OK: relatórios em $OUT_DIR/Relatorio_PT.pdf e $OUT_DIR/Report_EN.pdf"
+53:  echo "⚠️  Sem conteúdo EN. Pulei o relatório em inglês."
+54:  echo "OK: relatório PT em $OUT_DIR/Relatorio_PT.pdf"
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/bin/gera_relatorio.sh
+#!/usr/bin/env bash
+set -euo pipefail
+# Uso:
+#   gera_relatorio.sh --obra CAMINHO_OBRA --capitulos "Cap1[,Cap2,...]" \
+#                     --title "TÍTULO" --author "Autor" --advisor "Orientador" \
+#                     --out /caminho/saida.pdf
+BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+exec "$BASE_DIR/bin/relatorio_full.sh" "$@"
+>>> Ocorrências (relat|tex|pdf|pandoc|latex|abnt):
+4:#   gera_relatorio.sh --obra CAMINHO_OBRA --capitulos "Cap1[,Cap2,...]" \
+6:#                     --out /caminho/saida.pdf
+8:exec "$BASE_DIR/bin/relatorio_full.sh" "$@"
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/bin/normalize_text.sh
+#!/usr/bin/env bash
+# Normaliza .md: EOL, front-matter, metadados redundantes, links, divisórias,
+# poda seções não essenciais, limpeza unicode, etc.
+set -euo pipefail
+
+FILE="$1"
+TMP="$(mktemp)"
+
+# 1) Garante UTF-8 antes de tudo
+"$(dirname "$0")/reencode_utf8.sh" "$FILE"
+
+perl -CS -Mutf8 -0777 -pe '
+  # --- EOL e BOM
+  s/\r\n?/\n/g;
+  s/\A\x{FEFF}//;
+
+  # --- front-matter YAML do início
+  s/\A---\n.*?\n---\n?//s;
+
+  # --- remove blocos "metadados" (>=3 pares chave: valor num mesmo parágrafo)
+  $_ = join("\n\n",
+    grep {
+      my $p = $_;
+      my $hits = () = ($p =~ /(^|[ \t\|])\p{L}[\p{L}\p{M}\s\-]*:\s+/mg);
+      $hits < 3
+    } split(/\n{2,}/)
+  );
+
+  # --- links: [[alvo|texto]] -> texto ; [[alvo]] -> alvo ; [texto](url) -> texto
+  s/\[\[([^|\]]+)\|([^]]+)\]\]/$2/g;
+>>> Ocorrências (relat|tex|pdf|pandoc|latex|abnt):
+29:  # --- links: [[alvo|texto]] -> texto ; [[alvo]] -> alvo ; [texto](url) -> texto
+40:  # --- poda: seções que não fazem parte do relatório
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/bin/normalize_utf8.sh
+#!/usr/bin/env bash
+# Normaliza todos os .md para UTF-8 (remove latin1/macroman/etc)
+# Uso: ./normalize_utf8.sh <diretorio-da-obra>
+
+set -euo pipefail
+
+DIR="${1:-}"
+if [ -z "$DIR" ] || [ ! -d "$DIR" ]; then
+  echo "Uso: $0 <diretorio-da-obra>"
+  exit 1
+fi
+
+find "$DIR" -type f -name '*.md' | while read -r f; do
+  echo "→ Normalizando: $f"
+  # converte detectando charset e reescrevendo em UTF-8
+  iconv -f UTF-8 -t UTF-8 "$f" >/dev/null 2>&1 && continue
+  enca -L none "$f" >/dev/null 2>&1 || true
+  # tenta iso-8859-1 como fallback
+  iconv -f ISO-8859-1 -t UTF-8 "$f" -o "$f.utf8" 2>/dev/null || cp "$f" "$f.utf8"
+  mv "$f.utf8" "$f"
+done
+
+echo "✅ Todos os .md normalizados para UTF-8."
+>>> Ocorrências (relat|tex|pdf|pandoc|latex|abnt):
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/bin/normalize_vars.sh
+#!/usr/bin/env bash
+normalize_vars() {
+  local vars=(TITLE AUTHOR ADVISOR INSTIT CITY DATE)
+  local v val
+  for v in "${vars[@]}"; do
+    val="$(eval "printf '%s' \"\${$v:-}\"")"
+    val="${val//$'\u2011'/-}"
+    val="${val//$'\u2013'/-}"
+    val="${val//$'\u2014'/-}"
+    val="${val//$'\u00A0'/ }"
+    eval "$v=\"\$val\""
+  done
+}
+>>> Ocorrências (relat|tex|pdf|pandoc|latex|abnt):
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/bin/README.md
+# Scripts executáveis
+>>> Ocorrências (relat|tex|pdf|pandoc|latex|abnt):
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/bin/reencode_utf8.sh
+#!/usr/bin/env bash
+# Reencode para UTF-8 com detecção + fallbacks típicos (macOS).
+set -euo pipefail
+
+detect_charset() {
+  # Tenta detectar via `file -I` (macOS/BSD); retorna algo como 'utf-8', 'iso-8859-1' etc.
+  if command -v file >/dev/null 2>&1; then
+    # Saída: text/plain; charset=utf-8
+    local mime; mime="$(file -I "$1" 2>/dev/null || true)"
+    printf '%s\n' "$mime" | sed -n 's/.*charset=\(.*\)$/\1/p' | tr '[:upper:]' '[:lower:]'
+  else
+    echo ""
+  fi
+}
+
+recode_if_needed() {
+  local f="$1"
+  # Já é UTF-8 válido?
+  if iconv -f UTF-8 -t UTF-8 "$f" > /dev/null 2>&1; then
+    return 0
+  fi
+
+  local tmp; tmp="$(mktemp)"
+  local tried=()
+
+  # Se detecção sugerir um charset específico, tenta primeiro
+  local guess; guess="$(detect_charset "$f" || true)"
+  if [[ -n "$guess" && "$guess" != "utf-8" ]]; then
+    tried+=("$guess")
+    if iconv -f "$guess" -t UTF-8 "$f" -o "$tmp" 2>/dev/null; then
+>>> Ocorrências (relat|tex|pdf|pandoc|latex|abnt):
+8:    # Saída: text/plain; charset=utf-8
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/bin/relatorio_full.sh
+#!/bin/bash
+# shellcheck disable=SC2020,SC2016
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ============= Args =============
+OBRA_DIR=""
+CAP_DIR_NAME=""
+TITLE="Relatório de Leitura"
+AUTHOR=""
+ADVISOR=""
+OUT="$HOME/Relatorio_PT_TESTE.pdf"
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --obra) OBRA_DIR="$2"; shift 2;;
+    --capitulos) CAP_DIR_NAME="$2"; shift 2;;
+    --title) TITLE="$2"; shift 2;;
+    --author) AUTHOR="$2"; shift 2;;
+    --advisor) ADVISOR="$2"; shift 2;;
+    --out) OUT="$2"; shift 2;;
+    *) echo "Arg desconhecido: $1" >&2; exit 2;;
+  esac
+done
+
+if [[ -z "${OBRA_DIR}" || -z "${CAP_DIR_NAME}" ]]; then
+  echo "Uso: --obra <dir> --capitulos <nome_dir_capitulo> [--title ... --author ... --advisor ... --out ...]" >&2
+  exit 2
+fi
+
+>>> Ocorrências (relat|tex|pdf|pandoc|latex|abnt):
+12:OUT="$HOME/Relatorio_PT_TESTE.pdf"
+36:ABNT_HEADER="$TEMPL/abnt_header.tex"
+45:TMP_DIR="$(mktemp -d -t relatorio_XXXXXX)"
+67:if [[ -x "$BIN/normalize_text.sh" ]]; then
+69:    "$BIN/normalize_text.sh" "$f" >/dev/null || true
+77:ABNT_COVER_TMP="$(mktemp -t abnt_cover_XXXX.tex)"
+86:  < "$TEMPL/abnt_cover.tex" > "$ABNT_COVER_TMP"
+89:LOG="$TMP_DIR/pandoc.log"
+95:if pandoc "${TMP_MD[@]}" \
+97:  --pdf-engine=xelatex \
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/bin/seed_en_from_pt.sh
+#!/usr/bin/env bash
+# Copia .md PT do capítulo selecionado e cria esboços EN com marcador de tradução.
+set -euo pipefail
+
+if [[ $# -lt 2 ]]; then
+  echo "uso: seed_en_from_pt.sh OBRA_DIR \"Nome_da_Pasta_do_Capitulo_PT\""
+  exit 2
+fi
+
+OBRA="$1"
+CAP_PT="$2"
+
+SRC_DIR="$OBRA/$CAP_PT"
+DEST_DIR="$OBRA/en/01_chapters/$(basename "$CAP_PT" | sed 's/^Capítulo_/Chapter_/')"
+
+mkdir -p "$DEST_DIR"
+for name in Conceitos_Chave Ideias_Principais Questoes_Reflexao Trechos_Relevantes; do
+  src="$SRC_DIR/${name}.md"
+  [[ -f "$src" ]] || continue
+  base_en="$(echo "$name" | sed -e 's/Conceitos_Chave/Key_Concepts/' \
+                                -e 's/Ideias_Principais/Main_Ideas/' \
+                                -e 's/Questoes_Reflexao/Reflection_Questions/' \
+                                -e 's/Trechos_Relevantes/Relevant_Passages/')"
+  dst="$DEST_DIR/${base_en}.md"
+  {
+    echo "# TODO: Translate below to English"
+    echo
+    cat "$src"
+  } > "$dst"
+  echo "→ Seed EN: $dst"
+>>> Ocorrências (relat|tex|pdf|pandoc|latex|abnt):
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/bin/verify_md.sh
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  echo "uso: $(basename "$0") CAMINHO_DO_CAPITULO"
+  echo "ex.: projeto-obras/scripts-abnt/bin/verify_md.sh obras/MinhaObra/pt/01_capitulos/Capítulo_01"
+}
+
+CAP_DIR="${1:-}"
+[ -n "$CAP_DIR" ] || { usage; exit 2; }
+[ -d "$CAP_DIR" ] || { echo "ERRO: diretório não existe: $CAP_DIR" >&2; exit 2; }
+
+fail=0
+
+# 1) 00_intro obrigatório
+if [ ! -f "$CAP_DIR/00_intro.md" ]; then
+  echo "✗ Falta $CAP_DIR/00_intro.md"
+  fail=1
+fi
+
+# 2) cada .md deve ser UTF-8
+while IFS= read -r -d '' f; do
+  if ! iconv -f UTF-8 -t UTF-8 "$f" >/dev/null 2>&1; then
+    echo "✗ Não-UTF8: $f"
+    fail=1
+  fi
+done < <(find "$CAP_DIR" -maxdepth 1 -type f -name '*.md' -print0)
+
+# 3) seções proibidas
+for pat in "Conex(ões|oes)" "Metadados adicionais" "Sugest(ões|oes) de linkagem" "Insights?"; do
+>>> Ocorrências (relat|tex|pdf|pandoc|latex|abnt):
+6:  echo "ex.: projeto-obras/scripts-abnt/bin/verify_md.sh obras/MinhaObra/pt/01_capitulos/Capítulo_01"
+
+
+==== Templates LaTeX (projeto-obras/scripts-abnt/templates) ====
+abnt_cover.tex
+abnt_header.tex
+abnt-header.tex
+README.md
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/templates/abnt_cover.tex
+% Capa robusta para Pandoc/XeLaTeX
+\thispagestyle{empty}
+
+% Variáveis vindas do shell (via envsubst)
+\newcommand{\ABNTTitle}  {${TITLE}}
+\newcommand{\ABNTAuthor} {${AUTHOR}}
+\newcommand{\ABNTAdvisor}{${ADVISOR}}
+\newcommand{\ABNTInstit} {${INSTIT}}
+\newcommand{\ABNTCity}   {${CITY}}
+\newcommand{\ABNTDate}   {${DATE}}
+
+\begin{center}
+{\Large \textbf{\ABNTTitle}\par}
+\vspace{1em}
+
+\ifx\ABNTAuthor\empty\else
+{\large \textbf{Autor:} \ABNTAuthor\par}
+\fi
+
+\ifx\ABNTAdvisor\empty\else
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/templates/abnt_header.tex
+% ================= ABNT HEADER (XeLaTeX) =================
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+\usepackage{polyglossia}
+\setdefaultlanguage{portuguese}
+\setotherlanguage{english}
+
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+
+% Mapear traços Unicode não-ASCII -> hífen ASCII.
+\usepackage{newunicodechar}
+\newunicodechar{–}{-} % U+2013 (en dash)
+\newunicodechar{—}{-} % U+2014 (em dash)
+% NBSP (U+00A0) já é tratado na normalização de texto.
+% ==========================================================
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/templates/abnt-header.tex
+% Header LaTeX para relatórios ABNT (mínimo)
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage[left=3cm, right=2cm, top=3cm, bottom=2cm]{geometry}
+
+% Sumário com profundidade 2
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{1}
+
+% Capa não numerada
+\pagenumbering{gobble}
+
+-- /Users/marcosmenezes/chatgpt-export/projeto-obras/scripts-abnt/templates/README.md
+# Templates LaTeX e ABNT
+
+
+==== Index de Obras (docs/obras_index.yaml) ====
+# Gerado automaticamente por scripts/generate_obras_index.sh
+# Base OneDrive: /Users/marcosmenezes/Library/CloudStorage/OneDrive-Pessoal/USP/Projeto_ICB_Consciência/ICB-USP_Consciência
+obras:
+  - obra: "01_The_Character_of_Consciousness"
+    path_pt: "/Users/marcosmenezes/Library/CloudStorage/OneDrive-Pessoal/USP/Projeto_ICB_Consciência/ICB-USP_Consciência/01_The_Character_of_Consciousness"
+    path_en: "/Users/marcosmenezes/Library/CloudStorage/OneDrive-Pessoal/USP/Projeto_ICB_Consciência/ICB-USP_Consciência/01_The_Character_of_Consciousness/en/01_chapters"
+    chapters_pt: 6
+    chapters_en: 6
+    last_updated: "2025-08-19 15:48:03"
+
+-- Filtro p/ The_Character_of_Consciousness:
+4:  - obra: "01_The_Character_of_Consciousness"
+5:    path_pt: "/Users/marcosmenezes/Library/CloudStorage/OneDrive-Pessoal/USP/Projeto_ICB_Consciência/ICB-USP_Consciência/01_The_Character_of_Consciousness"
+6:    path_en: "/Users/marcosmenezes/Library/CloudStorage/OneDrive-Pessoal/USP/Projeto_ICB_Consciência/ICB-USP_Consciência/01_The_Character_of_Consciousness/en/01_chapters"
+
+==== Checklist sintético (derivado das ocorrências) ====
+- Metodologia define fluxo (capítulos PT/EN e arquivo introdutório por capítulo).
+- Atas mencionam: consolidação em relatório ABNT; bilíngue quando aplicável; interlinks Obsidian.
+- Scripts bin/ indicam geração LaTeX/PDF; verificar parâmetros de entrada/saída e nomes esperados.
+- Templates abnt_* definem capa/cabeçalho — checar se campos (autor, título, data, obra) estão corretos.
+- Conferir paths no obras_index.yaml (pt/en) antes de gerar.
+- Validações: todos capítulos com 00_intro.md; arquivo(s) principais preenchidos (sem placeholders).

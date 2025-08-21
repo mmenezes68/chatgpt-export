@@ -1,0 +1,71 @@
+% Header LaTeX ABNT/USP (Pandoc)
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{polyglossia}
+\setdefaultlanguage{portuguese}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage[left=3cm,right=2cm,top=3cm,bottom=2cm]{geometry}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\usepackage{tocloft}
+\setlength\cftbeforesecskip{6pt}
+\usepackage{titlesec}
+\titleformat{\section}{\bfseries\normalsize}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalsize}{\thesubsection}{0.6em}{}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+% ============ Variáveis vindas do Pandoc ============
+\newcommand{\ABNTTitle}{$title$}
+\newcommand{\ABNTAuthor}{$for(author)$$author$$sep$, $endfor$}
+\newcommand{\ABNTAdvisor}{$advisor$}
+\newcommand{\ABNTInstit}{$institution$}
+\newcommand{\ABNTCity}{$location$}
+\newcommand{\ABNTYear}{$year$}
+% ===================== Documento =====================
+\begin{document}
+% ---- Capa (sem numeração) ----
+\thispagestyle{empty}
+\begin{center}
+{\large \textbf{\ABNTInstit}\par}
+\vfill
+{\LARGE \textbf{\ABNTTitle}\par}
+\vfill
+{\large \ABNTAuthor\par}
+\vfill
+{\large \ABNTCity\par}
+{\large \ABNTYear\par}
+\end{center}
+\clearpage
+% ---- Folha de rosto (sem numeração) ----
+\thispagestyle{empty}
+\begin{center}
+{\large \textbf{\ABNTInstit}\par}
+\vfill
+{\LARGE \textbf{\ABNTTitle}\par}
+\vspace{1.5em}
+{\large \ABNTAuthor\par}
+\vspace{2em}
+\begin{minipage}{0.75\textwidth}
+\setstretch{1.3}
+\noindent Relatório apresentado ao Instituto de Ciências Biomédicas da Universidade de São Paulo, como parte da pesquisa acadêmica em consciência.\\
+\noindent Orientador: \ABNTAdvisor.
+\end{minipage}
+\vfill
+{\large \ABNTCity\par}
+{\large \ABNTYear\par}
+\end{center}
+\clearpage
+% ---- Sumário (sem numeração, mas conta página) ----
+\pagenumbering{gobble}
+{\bfseries\large Sumário}\par
+\tableofcontents
+\clearpage
+% ---- Corpo do texto (numeração arábica no topo direito) ----
+\pagenumbering{arabic}
+\setcounter{page}{1}
+$body$
+\end{document}

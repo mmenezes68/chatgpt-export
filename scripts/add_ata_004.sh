@@ -1,7 +1,13 @@
-[← Voltar ao índice](./INDEX.md)
+#!/usr/bin/env bash
+set -euo pipefail
 
-[⬅︎ Voltar ao índice](./INDEX.md)
+REPO="/Users/marcosmenezes/chatgpt-export"
+DEST_DIR="$REPO/docs/atas"
+DEST_FILE="$DEST_DIR/ata_004.md"
 
+mkdir -p "$DEST_DIR"
+
+cat > "$DEST_FILE" <<'EOF'
 ---
 titulo: "Ata 004 — Correção do Capítulo 1"
 data: "2025-08-19"
@@ -36,3 +42,13 @@ Ficou estabelecido que todos os capítulos terão seus arquivos `.md` revisados 
 Esses arquivos permitirão **navegar e interligar ideias** dentro da mesma obra e entre diferentes obras.  
 
 Ao final, os capítulos serão **consolidados em um relatório conforme as normas da ABNT/USP**, de forma a servir tanto como documento acadêmico formal quanto como base de conhecimento navegável no Obsidian.
+EOF
+
+cd "$REPO"
+git checkout main
+git pull origin main
+git add "$DEST_FILE"
+git commit -m "docs: adicionar ata 004 — correção do Capítulo 1 (The Character of Consciousness)"
+git push origin main
+
+echo "✅ Ata 004 criada em: $DEST_FILE e enviada para o GitHub (branch main)."

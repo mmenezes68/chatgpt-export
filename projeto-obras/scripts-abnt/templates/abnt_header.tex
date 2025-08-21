@@ -1,14 +1,17 @@
-\usepackage[brazil]{babel}
+% ================= ABNT HEADER (XeLaTeX) =================
 \usepackage{fontspec}
 \setmainfont{Times New Roman}
-\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
-\usepackage{setspace}\onehalfspacing
-\usepackage{indentfirst}
-\setlength{\parindent}{1.25cm}
-\setlength{\parskip}{0pt}
-\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\renewcommand{\labelitemi}{\textbullet}
-\addto\captionsbrazil{\renewcommand{\contentsname}{Sumário}}
-\usepackage[hidelinks]{hyperref}
-\usepackage{fancyhdr}
-\pagestyle{fancy}\fancyhf{}\fancyfoot[C]{\thepage}
+
+\usepackage{polyglossia}
+\setdefaultlanguage{portuguese}
+\setotherlanguage{english}
+
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+
+% Mapear traços Unicode não-ASCII -> hífen ASCII.
+\usepackage{newunicodechar}
+\newunicodechar{–}{-} % U+2013 (en dash)
+\newunicodechar{—}{-} % U+2014 (em dash)
+% NBSP (U+00A0) já é tratado na normalização de texto.
+% ==========================================================

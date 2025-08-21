@@ -1,0 +1,66 @@
+% Template ABNT/USP para Pandoc usando abnTeX2
+% Uso:
+% pandoc IN.md -o OUT.pdf --pdf-engine=xelatex \
+%   --template=scripts-abnt/templates/relatorio-abnt-usp.tex \
+%   -V title="Título" -V author="Autor" -V advisor="Orientador" \
+%   -V institution="Instituição" -V location="Cidade" -V year="2025"
+
+\documentclass[
+  12pt,            % corpo do texto
+  a4paper,         % tamanho do papel
+  oneside,         % impressão só frente
+  sumario=tradicional
+]{abntex2}
+
+% === Pacotes mínimos (abnTeX2 já carrega o necessário, inclusive hyperref) ===
+\usepackage{lipsum}        % (opcional, texto de teste)
+\usepackage{microtype}     % melhoras de justificação
+\usepackage{indentfirst}   % indenta 1º parágrafo das seções
+
+% === Metadados vindos do Pandoc ===
+\title{$title$}
+\author{$for(author)$$author$$sep$ \\ $endfor$}
+\orientador{$advisor$}
+\instituicao{$institution$}
+\local{$location$}
+\data{$year$}
+
+% === Ajustes de estilo em conformidade com ABNT/USP (básico) ===
+\setlength{\parindent}{1.25cm}   % recuo do parágrafo
+\setlength{\parskip}{0pt}        % espaço entre parágrafos (ABNT pede 0)
+\OnehalfSpacing                  % espaçamento 1,5
+
+% Títulos (mantém padrão ABNT; pode ajustar se desejar)
+\renewcommand{\ABNTEXchapterfont}{\bfseries\large\rmfamily}
+\renewcommand{\ABNTEXsectionfont}{\bfseries\normalsize\rmfamily}
+\renewcommand{\ABNTEXsubsectionfont}{\normalsize\rmfamily}
+
+% Numerar seções como 1, 1.1, ...
+\setcounter{secnumdepth}{3}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+\begin{document}
+% Importante: abnTeX2 já carrega hyperref. Mantemos links discretos:
+\hypersetup{hidelinks}
+
+% --- Elementos pré-textuais (capa e folha de rosto) ---
+\imprimircapa
+\imprimirfolhaderosto*
+
+% --- Sumário (com bookmark legível) ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+% --- Corpo do texto (o conteúdo do .md entra aqui) ---
+\textual
+$body$
+
+% (Opcional) Elementos pós-textuais — referências, anexos etc.
+% \postextual
+% $for(include-after)$
+% $include-after$
+% $endfor$
+
+\end{document}

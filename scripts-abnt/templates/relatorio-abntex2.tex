@@ -1,0 +1,52 @@
+\documentclass[12pt,openany,oneside,a4paper,english,portuguese]{abntex2}
+
+% ------- fontes / espaçamento -------
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{indentfirst}
+\usepackage{microtype}
+\usepackage{setspace}
+\OnehalfSpacing
+
+% ------- links -------
+
+% ------- figuras (opcional) -------
+\usepackage{graphicx}
+
+% ------- variáveis vindas do Pandoc -------
+\title{$title$}
+\author{$author$}
+\newcommand{\advisor}{$advisor$}
+\newcommand{\institution}{$institution$}
+\newcommand{\location}{$location$}
+\newcommand{\reportyear}{$year$}
+
+% ------- textos padrão da capa/rosto -------
+\instituicao{\institution}
+\local{\location}
+\data{\reportyear}
+\preambulo{Relatório apresentado ao Instituto de Ciências Biomédicas da Universidade de São Paulo, como parte da pesquisa acadêmica em consciência.\\
+\textbf{Orientador:} \advisor.}
+
+% ------- títulos em Times -------
+\renewcommand{\ABNTEXchapterfont}{\normalfont\bfseries\large\rmfamily}
+\renewcommand{\ABNTEXsectionfont}{\normalfont\bfseries\normalsize\rmfamily}
+\renewcommand{\ABNTEXsubsectionfont}{\normalfont\normalsize\rmfamily}
+
+% ------- numeração 1, 1.1, ... -------
+\setcounter{secnumdepth}{3}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+\begin{document}
+\hypersetup{hidelinks}
+\imprimircapa
+\imprimirfolhaderosto*
+
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\clearpage
+
+\textual
+$body$
+\end{document}

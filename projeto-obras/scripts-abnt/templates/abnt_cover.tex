@@ -1,14 +1,29 @@
+% Capa robusta para Pandoc/XeLaTeX
 \thispagestyle{empty}
+
+% Variáveis vindas do shell (via envsubst)
+\newcommand{\ABNTTitle}  {${TITLE}}
+\newcommand{\ABNTAuthor} {${AUTHOR}}
+\newcommand{\ABNTAdvisor}{${ADVISOR}}
+\newcommand{\ABNTInstit} {${INSTIT}}
+\newcommand{\ABNTCity}   {${CITY}}
+\newcommand{\ABNTDate}   {${DATE}}
+
 \begin{center}
-  {\Large \textbf{$TITLE}}\par
-  \vspace{1.2cm}
-  {$AUTHOR}\par
-  \vspace{0.4cm}
-  {Orientador: $ADVISOR}\par
-  \vspace{0.4cm}
-  {$INSTIT}\par
-  \vfill
-  {$CITY}\par
-  {$DATE}\par
+{\Large \textbf{\ABNTTitle}\par}
+\vspace{1em}
+
+\ifx\ABNTAuthor\empty\else
+{\large \textbf{Autor:} \ABNTAuthor\par}
+\fi
+
+\ifx\ABNTAdvisor\empty\else
+{\large \textbf{Orientador:} \ABNTAdvisor\par}
+\fi
+
+\vfill
+{\large \ABNTInstit\par}
+{\large \ABNTCity\par}
+{\large \ABNTDate\par}
 \end{center}
 \clearpage

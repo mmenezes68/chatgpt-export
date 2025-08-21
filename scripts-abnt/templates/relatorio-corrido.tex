@@ -1,0 +1,51 @@
+\documentclass[12pt]{article}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{polyglossia}
+\setdefaultlanguage{portuguese}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage[left=3cm,right=2cm,top=3cm,bottom=2cm]{geometry}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\usepackage{tocloft}
+\setlength\cftbeforesecskip{6pt}
+\usepackage{titlesec}
+\titleformat{\section}{\bfseries\normalsize}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalsize}{\thesubsection}{0.6em}{}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+\newcommand{\ABNTTitle}{$title$}
+\newcommand{\ABNTAuthor}{$for(author)$$author$$sep$, $endfor$}
+\newcommand{\ABNTInstit}{$institution$}
+\newcommand{\ABNTCity}{$location$}
+\newcommand{\ABNTYear}{$year$}
+
+\begin{document}
+\thispagestyle{empty}
+\begin{center}
+{\large \textbf{\ABNTInstit}\par}
+\vfill
+{\LARGE \textbf{\ABNTTitle}\par}
+\vspace{1.5em}
+{\large \ABNTAuthor\par}
+\vfill
+{\large \ABNTCity\par}
+{\large \ABNTYear\par}
+\end{center}
+\clearpage
+
+\pagenumbering{gobble}
+{\bfseries\large Sumário}\par
+\tableofcontents
+\clearpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+$body$
+
+\end{document}
