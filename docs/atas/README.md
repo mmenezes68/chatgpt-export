@@ -11,3 +11,5 @@
 | 7 | Ata 007 — <título da reunião> — Projeto ICB-USP Consciência | 2025-08-24   | [ata_007.md](ata_007.md) |
 | 8 | Ata 008 — <título da reunião> — Projeto ICB-USP Consciência | 2025-08-24   | [ata_008.md](ata_008.md) |
 | 9 | Ata 009 — <título da reunião> — Projeto ICB-USP Consciência | 2025-08-25   | [ata_009.md](ata_009.md) |
+| 10 | Ata 010 — <título da reunião> — Projeto ICB-USP Consciência | 2025-08-25   | [ata_010.md](ata_010.md) |
+| 11 | Ata 011 — <título da reunião> — Projeto ICB-USP Consciência | 2025-08-25   | [ata_011.md](ata_011.md) |
