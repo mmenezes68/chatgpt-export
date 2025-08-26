@@ -21,3 +21,5 @@ FILES=$(ls -1 "$ATAS_DIR"/ata_*.md 2>/dev/null | sed -E 's/.*ata_([0-9]+)\.md/\1
   done
 } > "$OUT"
 echo "OK: $OUT"
+
+cp docs/atas/README.md docs/atas/INDEX.md
