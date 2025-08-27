@@ -14,3 +14,4 @@
 | 10 | Ata 010 — Integração do Script `sanitize_md.sh` ao Pipeline ABNT/USP | 2025-08-27   | [ata_010.md](ata_010.md) |
 | 11 | Ata 011 — Ajustes Estruturais nos Relatórios ABNT/USP | 2025-08-27 | [ata_011.md](ata_011.md) |
 | 12 | Ata 012 — Aprimoramento da Sanitização e Estrutura dos Relatórios (PT/EN) | 2025-08-27   | [ata_012.md](ata_012.md) |
+| 13 | Ata 013 — Diagnóstico Pós-Sanitização e Ajustes Finais nos Relatórios ABNT/USP | 2025-08-28   | [ata_013.md](ata_013.md) |
