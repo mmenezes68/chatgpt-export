@@ -16,3 +16,4 @@
 | 12 | Ata 012 — Aprimoramento da Sanitização e Estrutura dos Relatórios (PT/EN) | 2025-08-27   | [ata_012.md](ata_012.md) |
 | 13 | Ata 013 — Diagnóstico Pós-Sanitização e Ajustes Finais nos Relatórios ABNT/USP | 2025-08-28   | [ata_013.md](ata_013.md) |
 | 14 | Ata 014 — Inclusão do Guia Rápido no Fluxo Oficial | 2025-08-27   | [ata_014.md](ata_014.md) |
+| 15 | Ata 015 — Inclusão de material de referência ABNT/USP (USP/ECA) | 2025-08-27   | [ata_015.md](ata_015.md) |
