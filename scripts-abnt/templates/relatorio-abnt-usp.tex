@@ -1,66 +1,99 @@
-% Template ABNT/USP para Pandoc usando abnTeX2
-% Uso:
-% pandoc IN.md -o OUT.pdf --pdf-engine=xelatex \
-%   --template=scripts-abnt/templates/relatorio-abnt-usp.tex \
-%   -V title="Título" -V author="Autor" -V advisor="Orientador" \
-%   -V institution="Instituição" -V location="Cidade" -V year="2025"
+\documentclass{abntex2}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}[
+  BoldFont      = Times New Roman Bold,
+  ItalicFont    = Times New Roman Italic,
+  BoldItalicFont= Times New Roman Bold Italic
+]
+\usepackage{microtype}
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
 
-\documentclass[
-  12pt,            % corpo do texto
-  a4paper,         % tamanho do papel
-  oneside,         % impressão só frente
-  sumario=tradicional
-]{abntex2}
+% Fontes (usa variável do Pandoc ou fallback)
+\usepackage{fontspec}
+$if(mainfont)$
+  \setmainfont{$mainfont$}
+$else$
+  \setmainfont{Times New Roman}
+$endif$
 
-% === Pacotes mínimos (abnTeX2 já carrega o necessário, inclusive hyperref) ===
-\usepackage{lipsum}        % (opcional, texto de teste)
-\usepackage{microtype}     % melhoras de justificação
-\usepackage{indentfirst}   % indenta 1º parágrafo das seções
+\usepackage{microtype}
+\usepackage{polyglossia}
+\setdefaultlanguage{brazil}
 
-% === Metadados vindos do Pandoc ===
-\title{$title$}
-\author{$for(author)$$author$$sep$ \\ $endfor$}
+% Metadados (Pandoc)
+\titulo{$title$}
+\autor{$author$}
 \orientador{$advisor$}
 \instituicao{$institution$}
-\local{$location$}
+\local{$place$}
 \data{$year$}
 
-% === Ajustes de estilo em conformidade com ABNT/USP (básico) ===
-\setlength{\parindent}{1.25cm}   % recuo do parágrafo
-\setlength{\parskip}{0pt}        % espaço entre parágrafos (ABNT pede 0)
-\OnehalfSpacing                  % espaçamento 1,5
-
-% Títulos (mantém padrão ABNT; pode ajustar se desejar)
-\renewcommand{\ABNTEXchapterfont}{\bfseries\large\rmfamily}
-\renewcommand{\ABNTEXsectionfont}{\bfseries\normalsize\rmfamily}
-\renewcommand{\ABNTEXsubsectionfont}{\normalsize\rmfamily}
-
-% Numerar seções como 1, 1.1, ...
-\setcounter{secnumdepth}{3}
-\renewcommand{\thesection}{\arabic{section}}
-\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+% Instituição padrão se vazia
+\makeatletter
+\@ifundefined{ABNT@instituicao}{\instituicao{Universidade de São Paulo}}{}
+\makeatother
 
 \begin{document}
-% Importante: abnTeX2 já carrega hyperref. Mantemos links discretos:
-\hypersetup{hidelinks}
-
-% --- Elementos pré-textuais (capa e folha de rosto) ---
 \imprimircapa
 \imprimirfolhaderosto*
 
-% --- Sumário (com bookmark legível) ---
-\pdfbookmark[0]{\contentsname}{toc}
+% Sumário / listas
+\pdfbookmark[0]{Sumário}{sumario}
 \tableofcontents*
-\cleardoublepage
+$if(lof)$\listoffigures*$endif$
+$if(lot)$\listoftables*$endif$
 
-% --- Corpo do texto (o conteúdo do .md entra aqui) ---
-\textual
+% Corpo
 $body$
 
-% (Opcional) Elementos pós-textuais — referências, anexos etc.
-% \postextual
-% $for(include-after)$
-% $include-after$
-% $endfor$
+% Referências
+$if(bibliography)$
+\bibliographystyle{abntex2-alf}
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$endif$
 
 \end{document}
+% ==== CAPA PADRONIZADA USP/ABNT COM ORIENTADOR ====
+\makeatletter
+\renewcommand{\imprimircapa}{%
+  \begin{capa}
+    \centering
+    {\fontsize{14}{16}\selectfont\textbf{\ABNTinstituicao}\par}
+    \vspace*{2.5cm}
+    {\fontsize{12}{14}\selectfont\ABNTautor\par}
+    \vfill
+    {\fontsize{18}{20}\selectfont\textbf{\ABNTtitulo}\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont Orientador: \@orientador\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont\ABNTlocal\par}
+    {\fontsize{12}{14}\selectfont\ABNTdata\par}
+  \end{capa}%
+}
+\makeatother
+% ==== AJUSTES DO SUMÁRIO (ABNT 12 pt) ====
+\makeatletter
+% fonte 12 pt para níveis do sumário
+\renewcommand{\cftsecfont}{\normalsize}
+\renewcommand{\cftsecpagefont}{\normalsize}
+\renewcommand{\cftsubsecfont}{\normalsize}
+\renewcommand{\cftsubsecpagefont}{\normalsize}
+% pontilhado mais “cheio”
+\renewcommand{\cftdotsep}{1}
+% reduzir espaçamento vertical entre entradas
+\setlength{\cftbeforesecskip}{0pt}
+\setlength{\cftbeforesubsecskip}{0pt}
+\makeatother
+% --- Ajustes finos do Sumário (abnTeX2) ---
+\makeatletter
+\renewcommand{\cftchapterfont}{\normalsize}
+\renewcommand{\cftsectionfont}{\normalsize}
+\renewcommand{\cftsubsectionfont}{\normalsize}
+\renewcommand{\cftdotsep}{1}
+\renewcommand{\cftchapindent}{0pt}
+\renewcommand{\cftsecindent}{0pt}
+\renewcommand{\cftsubsecindent}{0pt}
+\setlength{\cftbeforechapskip}{6pt}
+\setlength{\cftbeforesecskip}{2pt}
+\setlength{\cftbeforesubsecskip}{1pt}
+\makeatother
