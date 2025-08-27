@@ -10,3 +10,4 @@
 | 6 | Ata 006 — Planejamento de Evolução do Projeto | 21/08/2025   | [ata_006.md](ata_006.md) |
 | 7 | Ata 007 — Contrato Técnico para Relatórios ABNT/USP | 2025-08-26   | [ata_007.md](ata_007.md) |
 | 8 | Ata 008 — Correções Estruturais nos Relatórios ABNT/USP | 2025-08-27   | [ata_008.md](ata_008.md) |
+| 9 | Ata 009 — Padronização do Uso do Kit de Atas em Diferentes Chats/Obras | 2025-08-27   | [ata_009.md](ata_009.md) |
