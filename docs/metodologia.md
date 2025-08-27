@@ -100,3 +100,17 @@ Cada obra deve seguir a mesma estrutura:
 ------------------------------------------------------------------------
 
 ✍️ **Última atualização:** 2025-08-19
+
+---
+
+# Uso do Kit de Atas (ABNT/USP)
+
+Este projeto utiliza um kit de scripts para padronizar a criação, validação e versionamento de atas.  
+Objetivo: garantir que todas as atas estejam consistentes, numeradas corretamente e refletidas no índice.
+
+## Fluxo de uso
+
+1. **Criar nova ata**
+```bash
+bash scripts-abnt/bin/atas.sh new
+- Ver também: docs/referencias_abnt/Apresentacao_normas_da_ABNT.pptx
