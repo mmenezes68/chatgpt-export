@@ -6,12 +6,18 @@
   BoldItalicFont= Times New Roman Bold Italic
 ]
 \usepackage{microtype}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}[
+  BoldFont      = Times New Roman Bold,
+  ItalicFont    = Times New Roman Italic,
+  BoldItalicFont= Times New Roman Bold Italic
+]
+\usepackage{microtype}
 \usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
 
 % Fontes (usa variável do Pandoc ou fallback)
 \usepackage{fontspec}
 $if(mainfont)$
-  \setmainfont{$mainfont$}
 $else$
   \setmainfont{Times New Roman}
 $endif$
@@ -96,4 +102,97 @@ $endif$
 \setlength{\cftbeforechapskip}{6pt}
 \setlength{\cftbeforesecskip}{2pt}
 \setlength{\cftbeforesubsecskip}{1pt}
+\makeatother
+% --- Sumário (abnTeX2): fonte uniforme e espaçamento reduzido ---
+\makeatletter
+\renewcommand{\cftchapterfont}{\normalfont}
+\renewcommand{\cftsectionfont}{\normalfont}
+\renewcommand{\cftsubsectionfont}{\normalfont}
+\renewcommand{\cftchapterpagefont}{\normalfont}
+\renewcommand{\cftsectionpagefont}{\normalfont}
+\renewcommand{\cftsubsectionpagefont}{\normalfont}
+\renewcommand{\cftdotsep}{1}
+\renewcommand{\cftchapindent}{0pt}
+\renewcommand{\cftsecindent}{0pt}
+\renewcommand{\cftsubsecindent}{0pt}
+\setlength{\cftbeforechapskip}{6pt}
+\setlength{\cftbeforesecskip}{2pt}
+\setlength{\cftbeforesubsecskip}{1pt}
+\makeatother
+% --- CAPA ABNT/USP PADRONIZADA (Times 12 pt; título 14 pt) ---
+\makeatletter
+\renewcommand{\imprimircapa}{%
+  \begin{capa}
+    \centering
+    {\fontsize{12}{14}\selectfont\ABNTautor\par}
+    \vspace*{2.0cm}
+    {\fontsize{14}{16}\selectfont\textbf{\ABNTtitulo}\par}
+    \vspace*{2.0cm}
+    {\fontsize{12}{14}\selectfont Orientador: Prof. Dr. Walter Chesnut\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont\ABNTinstituicao\par}
+    {\fontsize{12}{14}\selectfont\ABNTlocal\par}
+    {\fontsize{12}{14}\selectfont\ABNTdata\par}
+  \end{capa}%
+}
+\makeatother
+% --- Ajuste capa/folha USP ICB ---
+\makeatletter
+\renewcommand{\imprimircapa}{%
+  \begin{capa}
+    \centering
+    {\fontsize{14}{16}\selectfont\textbf{Universidade de São Paulo}\par}
+    {\fontsize{12}{14}\selectfont Instituto de Ciências Biomédicas\par}
+    \vspace*{2.5cm}
+    {\fontsize{12}{14}\selectfont\ABNTautor\par}
+    \vfill
+    {\fontsize{18}{20}\selectfont\textbf{\ABNTtitulo}\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont Orientador: Prof. Dr. Walter Chesnut\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont\ABNTlocal\par}
+    {\fontsize{12}{14}\selectfont\ABNTdata\par}
+  \end{capa}%
+}
+\makeatother
+% --- Ajustes finais ABNT USP ---
+\makeatletter
+
+% 1) Fonte do sumário (12pt normal)
+\renewcommand{\cftchapterfont}{\normalsize}
+\renewcommand{\cftsectionfont}{\normalsize}
+\renewcommand{\cftsubsectionfont}{\normalsize}
+\renewcommand{\cftchapterpagefont}{\normalsize}
+\renewcommand{\cftsectionpagefont}{\normalsize}
+\renewcommand{\cftsubsectionpagefont}{\normalsize}
+
+% 2) Capa corrigida (USP/ICB + título 14pt + autor maiúsculas + data completa)
+\renewcommand{\imprimircapa}{%
+  \begin{capa}
+    \centering
+    {\fontsize{14}{16}\selectfont\textbf{Universidade de São Paulo}\par}
+    {\fontsize{12}{14}\selectfont Instituto de Ciências Biomédicas\par}
+    \vspace*{2.5cm}
+    {\fontsize{12}{14}\selectfont \MakeUppercase{\ABNTautor}\par}
+    \vfill
+    {\fontsize{14}{16}\selectfont\textbf{\ABNTtitulo}\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont Orientador: Prof. Dr. Walter Chesnut\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont\ABNTlocal\par}
+    {\fontsize{12}{14}\selectfont Agosto / \ABNTdata\par}
+  \end{capa}%
+}
+
+% 3) Forçar listas obrigatórias sempre (mesmo se vazias)
+\renewcommand{\imprimirsumario}{%
+  \pdfbookmark[0]{\contentsname}{toc}
+  \tableofcontents*
+  \cleardoublepage
+  \listoffigures*
+  \cleardoublepage
+  \listoftables*
+  \cleardoublepage
+}
+
 \makeatother
