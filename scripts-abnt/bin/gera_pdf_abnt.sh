@@ -27,7 +27,7 @@ mainfont="${MAINFONT:-DejaVu Serif}"
 TEXINPUTS="$(pwd)/scripts-abnt/templates:" \
 pandoc "$IN" --from=gfm --pdf-engine=xelatex \
   --template "$tmpl" \
-  -V mainfont="$mainfont" \
+  \
   -o "$OUT"
 
 echo "OK: $OUT"
