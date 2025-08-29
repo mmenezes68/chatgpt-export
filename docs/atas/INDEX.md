@@ -20,3 +20,4 @@
 | 16 | Ata 016 — Correção de Páginas Extras (Capa/Índice) | 2025-08-27   | [ata_016.md](ata_016.md) |
 | 17 | Ata 017 — Diagnóstico de Não Conformidades nos Relatórios ABNT/USP | 2025-08-28   | [ata_017.md](ata_017.md) |
 | 18 | Ata 018 — Consolidação do Sanitizer e Alinhamento com ABNTex2 | 2025-08-29   | [ata_018.md](ata_018.md) |
+| 19 | Ata 019 — Estrutura ABNT para Relatório de Leitura de Obra | 2025-08-29   | [ata_019.md](ata_019.md) |
