@@ -1,0 +1,19 @@
+---
+titulo: "Capítulo 2 — Como Podemos Construir uma Ciência da Consciência"
+obra: "O Caráter da Consciência"
+autor: "David J. Chalmers"
+data_leitura: "2025-08-19"
+lingua: "pt"
+tipo: "00_intro"
+tags: ["consciência", "ciência da mente", "metodologia científica", "explicação da consciência"]
+interlinks:
+  - [[Problema_Dificil]]
+  - [[Problemas_Faceis]]
+  - [[Teorias_da_Consciência]]
+---# Introdução — Capítulo 2Neste capítulo, Chalmers discute a questão metodológica central: **como é possível estruturar uma ciência da consciência**, considerando que a experiência subjetiva não se enquadra facilmente nos moldes da ciência tradicional.A proposta envolve três grandes eixos:1. **Estabelecimento de correlações psicofísicas**  
+   - Primeiro passo: mapear sistematicamente as correlações entre processos físicos/neurofisiológicos e os aspectos fenomenais da experiência.  
+   - Trata-se de identificar *regularidades empíricas* entre estados de consciência e estados cerebrais ou cognitivos.2. **Formulação de princípios psicofísicos fundamentais**  
+   - Dada a insuficiência de explicações puramente funcionais, será necessário postular **leis básicas** que conectem propriedades físicas e propriedades experienciais.  
+   - Essas leis terão caráter **não redutivo**, semelhante ao papel que princípios fundamentais têm em outras ciências (ex.: leis da gravitação, do eletromagnetismo).3. **Construção de uma teoria da consciência**  
+   - Com base nas correlações e princípios, pode-se propor uma teoria sistemática capaz de explicar como e por que certos sistemas possuem experiência consciente.  
+   - Essa teoria não negará a ciência existente, mas ampliará seu escopo, incorporando a consciência como elemento fundamental da realidade.---## Objetivo do CapítuloMostrar que **uma ciência da consciência é possível** — mas para isso deve ser concebida de modo **mais abrangente** que as ciências tradicionais, incluindo novas categorias explicativas.  O capítulo delineia os **passos metodológicos** dessa ciência, preparando terreno para os debates seguintes.

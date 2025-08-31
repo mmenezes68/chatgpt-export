@@ -1,0 +1,27 @@
+---
+titulo: "Conceitos-Chave — Capítulo 5"
+obra: "O Caráter da Consciência"
+autor: "David J. Chalmers"
+data_leitura: "2025-08-20"
+lingua: "pt"
+tipo: "Conceitos_Chave"
+tags: ["consciência", "dualismo naturalista", "leis psicofísicas", "ontologia científica"]
+interlinks:
+  - [[Problema_Dificil]]
+  - [[Dualismo_Naturalista]]
+  - [[Leis_Psicofisicas]]
+---# Conceitos-Chave — Capítulo 5## Problema Difícil da Consciência
+- Questão central: por que e como processos físicos produzem experiência subjetiva?  
+- Mostra a limitação do materialismo redutivo.## Reducionismo vs. Irredutibilidade
+- Teorias materialistas não conseguem explicar o aspecto fenomenal da mente.  
+- A consciência deve ser tratada como um fenômeno **irredutível**.## Dualismo Naturalista
+- Tese defendida por Chalmers: a consciência é uma **propriedade fundamental** da natureza.  
+- Não rejeita a ciência, mas amplia seu alcance.  
+- Complementa, e não substitui, as leis físicas existentes.## Leis Psicofísicas
+- Conjunto de leis fundamentais que conectam estados físicos e estados conscientes.  
+- Funcionam como ponte entre o domínio físico e o domínio fenomenal.  
+- São não-redutivas, mas **necessárias para explicar a experiência**.## Consciência na Ontologia Científica
+- Deve ser incluída na estrutura fundamental do mundo, ao lado de entidades como massa, carga e espaço-tempo.  
+- Reconhecimento da consciência como parte da **realidade básica**.## Impactos Filosóficos e Científicos
+- Exige repensar os limites da ciência tradicional.  
+- Abre espaço para uma **teoria abrangente** da mente, integrando filosofia e ciência empírica.

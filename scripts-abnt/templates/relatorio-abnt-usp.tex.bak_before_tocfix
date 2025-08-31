@@ -47,10 +47,6 @@ $if(lang)$\setdefaultlanguage{$lang$}$else$\setdefaultlanguage{brazil}$endif$
 \makeatletter
 \makeatother
 
-\usepackage{longtable}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{multirow}
 \begin{document}
 % === FIXA NUMERAÇÃO DAS SEÇÕES (sem capítulo) ===
 \counterwithout{section}{chapter}

@@ -1,0 +1,26 @@
+---
+titulo: "Conceitos-Chave — Capítulo 4"
+obra: "O Caráter da Consciência"
+autor: "David J. Chalmers"
+data_leitura: "2025-08-20"
+lingua: "pt"
+tipo: "Conceitos_Chave"
+tags: ["consciência", "correlatos neurais", "neurociência", "métodos empíricos"]
+interlinks:
+  - [[Correlatos_Neurais]]
+  - [[Problema_Dificil]]
+  - [[Teorias_da_Consciência]]
+---# Conceitos-Chave — Capítulo 4## Critérios de Identificação de CNCs
+- Um **CNC** deve estar presente sempre que ocorre a experiência consciente correspondente e ausente quando ela não ocorre.  
+- Exige contrastes experimentais entre percepção consciente e processamento inconsciente.## Métodos Neurocientíficos
+- **fMRI (ressonância magnética funcional)**: mapeia áreas cerebrais ativadas durante experiências específicas.  
+- **EEG e MEG**: registram padrões temporais de atividade neural.  
+- **Estimulação transcraniana**: manipula processos neurais para verificar efeitos na experiência.  
+- **Estudos de lesões**: associam danos cerebrais à perda de capacidades conscientes.## CNC Total vs. CNC Específico
+- **CNC total**: conjunto mínimo de mecanismos neurais necessários para qualquer estado consciente.  
+- **CNC específico**: correlação entre um padrão neural e uma experiência particular.## Desafios Conceituais
+- **Múltipla realizabilidade**: a mesma experiência pode ter diferentes bases neurais em indivíduos ou espécies distintas.  
+- **Variação interindividual**: diferenças entre cérebros humanos podem complicar a identificação de CNCs universais.  
+- **Limites experimentais**: restrições tecnológicas de resolução espacial e temporal.## Importância Filosófica
+- O estudo de CNCs **não resolve o problema difícil**, mas delimita as condições empíricas da consciência.  
+- Fornece um guia metodológico para integrar filosofia e neurociência.

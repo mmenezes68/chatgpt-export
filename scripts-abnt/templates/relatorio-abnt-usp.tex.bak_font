@@ -1,0 +1,99 @@
+\documentclass{abntex2}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}[
+  BoldFont      = Times New Roman Bold,
+  ItalicFont    = Times New Roman Italic,
+  BoldItalicFont= Times New Roman Bold Italic
+]
+\usepackage{microtype}
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
+
+% Fontes (usa variável do Pandoc ou fallback)
+\usepackage{fontspec}
+$if(mainfont)$
+  \setmainfont{$mainfont$}
+$else$
+  \setmainfont{Times New Roman}
+$endif$
+
+\usepackage{microtype}
+\usepackage{polyglossia}
+\setdefaultlanguage{brazil}
+
+% Metadados (Pandoc)
+\titulo{$title$}
+\autor{$author$}
+\orientador{$advisor$}
+\instituicao{$institution$}
+\local{$place$}
+\data{$year$}
+
+% Instituição padrão se vazia
+\makeatletter
+\@ifundefined{ABNT@instituicao}{\instituicao{Universidade de São Paulo}}{}
+\makeatother
+
+\begin{document}
+\imprimircapa
+\imprimirfolhaderosto*
+
+% Sumário / listas
+\pdfbookmark[0]{Sumário}{sumario}
+\tableofcontents*
+$if(lof)$\listoffigures*$endif$
+$if(lot)$\listoftables*$endif$
+
+% Corpo
+$body$
+
+% Referências
+$if(bibliography)$
+\bibliographystyle{abntex2-alf}
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$endif$
+
+\end{document}
+% ==== CAPA PADRONIZADA USP/ABNT COM ORIENTADOR ====
+\makeatletter
+\renewcommand{\imprimircapa}{%
+  \begin{capa}
+    \centering
+    {\fontsize{14}{16}\selectfont\textbf{\ABNTinstituicao}\par}
+    \vspace*{2.5cm}
+    {\fontsize{12}{14}\selectfont\ABNTautor\par}
+    \vfill
+    {\fontsize{18}{20}\selectfont\textbf{\ABNTtitulo}\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont Orientador: \@orientador\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont\ABNTlocal\par}
+    {\fontsize{12}{14}\selectfont\ABNTdata\par}
+  \end{capa}%
+}
+\makeatother
+% ==== AJUSTES DO SUMÁRIO (ABNT 12 pt) ====
+\makeatletter
+% fonte 12 pt para níveis do sumário
+\renewcommand{\cftsecfont}{\normalsize}
+\renewcommand{\cftsecpagefont}{\normalsize}
+\renewcommand{\cftsubsecfont}{\normalsize}
+\renewcommand{\cftsubsecpagefont}{\normalsize}
+% pontilhado mais “cheio”
+\renewcommand{\cftdotsep}{1}
+% reduzir espaçamento vertical entre entradas
+\setlength{\cftbeforesecskip}{0pt}
+\setlength{\cftbeforesubsecskip}{0pt}
+\makeatother
+% --- Ajustes finos do Sumário (abnTeX2) ---
+\makeatletter
+\renewcommand{\cftchapterfont}{\normalsize}
+\renewcommand{\cftsectionfont}{\normalsize}
+\renewcommand{\cftsubsectionfont}{\normalsize}
+\renewcommand{\cftdotsep}{1}
+\renewcommand{\cftchapindent}{0pt}
+\renewcommand{\cftsecindent}{0pt}
+\renewcommand{\cftsubsecindent}{0pt}
+\setlength{\cftbeforechapskip}{6pt}
+\setlength{\cftbeforesecskip}{2pt}
+\setlength{\cftbeforesubsecskip}{1pt}
+\makeatother

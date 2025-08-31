@@ -1,0 +1,67 @@
+\documentclass{abntex2}
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
+
+% Fontes (usa variável do Pandoc ou fallback)
+\usepackage{fontspec}
+$if(mainfont)$
+  \setmainfont{$mainfont$}
+$else$
+  \setmainfont{Times New Roman}
+$endif$
+
+\usepackage{microtype}
+\usepackage{polyglossia}
+\setdefaultlanguage{brazil}
+
+% Metadados (Pandoc)
+\titulo{$title$}
+\autor{$author$}
+\newcommand{\orientador}[1]{\gdef\@orientador{#1}}
+\orientador{$advisor$}
+\instituicao{$institution$}
+\local{$place$}
+\data{$year$}
+
+% Instituição padrão se vazia
+\makeatletter
+\@ifundefined{ABNT@instituicao}{\instituicao{Universidade de São Paulo}}{}
+\makeatother
+
+\begin{document}
+\imprimircapa
+\imprimirfolhaderosto*
+
+% Sumário / listas
+\pdfbookmark[0]{Sumário}{sumario}
+\tableofcontents*
+$if(lof)$\listoffigures*$endif$
+$if(lot)$\listoftables*$endif$
+
+% Corpo
+$body$
+
+% Referências
+$if(bibliography)$
+\bibliographystyle{abntex2-alf}
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$endif$
+
+\end{document}
+% ==== CAPA PADRONIZADA USP/ABNT COM ORIENTADOR ====
+\makeatletter
+\renewcommand{\imprimircapa}{%
+  \begin{capa}
+    \centering
+    {\fontsize{14}{16}\selectfont\textbf{\ABNTinstituicao}\par}
+    \vspace*{2.5cm}
+    {\fontsize{12}{14}\selectfont\ABNTautor\par}
+    \vfill
+    {\fontsize{18}{20}\selectfont\textbf{\ABNTtitulo}\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont Orientador: Prof. Dr. Walter Chesnut\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont\ABNTlocal\par}
+    {\fontsize{12}{14}\selectfont\ABNTdata\par}
+  \end{capa}%
+}
+\makeatother

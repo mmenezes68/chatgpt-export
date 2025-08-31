@@ -1,0 +1,12 @@
+---
+titulo: "Trechos Relevantes — Capítulo 3"
+obra: "O Caráter da Consciência"
+autor: "David J. Chalmers"
+data_leitura: "2025-08-20"
+lingua: "pt"
+tipo: "Trechos_Relevantes"
+tags: ["consciência", "correlatos neurais", "neurociência", "problema difícil"]
+interlinks:
+  - [[Problema_Dificil]]
+  - [[Correlatos_Neurais]]
+---# Trechos Relevantes — Capítulo 3> "Um correlato neural da consciência é um estado ou processo neural que ocorre sempre que ocorre uma experiência consciente específica."  ---> "Identificar correlatos neurais é um passo essencial para o desenvolvimento de uma ciência empírica da consciência."  ---> "Os CNCs não explicam por que processos neurais produzem experiência, mas ajudam a restringir as teorias possíveis."  ---> "Devemos distinguir entre um correlato neural total — suficiente para qualquer estado consciente — e correlatos específicos, ligados a experiências particulares."  ---> "O mapeamento dos CNCs pode fornecer pistas sobre princípios psicofísicos mais fundamentais."  

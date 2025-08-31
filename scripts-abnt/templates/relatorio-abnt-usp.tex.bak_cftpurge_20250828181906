@@ -1,0 +1,94 @@
+\documentclass{abntex2}
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
+
+% Fontes
+\usepackage{fontspec}
+\setmainfont{Times New Roman}[
+  BoldFont      = Times New Roman Bold,
+  ItalicFont    = Times New Roman Italic,
+  BoldItalicFont= Times New Roman Bold Italic
+]
+\usepackage{microtype}
+
+% Idioma (via Pandoc -V lang=...)
+\usepackage{polyglossia}
+$if(lang)$\setdefaultlanguage{$lang$}$else$\setdefaultlanguage{brazil}$endif$
+
+% Metadados (Pandoc)
+\titulo{$title$}
+\autor{$author$}
+\instituicao{$if(institution)$$institution$$else$Universidade de São Paulo$endif$}
+\local{$place$}
+\data{$year$}
+
+% Capa (USP/ICB)
+\makeatletter
+\renewcommand{\imprimircapa}{%
+  \begin{capa}
+    \centering
+    {\fontsize{14}{16}\selectfont\textbf{Universidade de São Paulo}\par}
+    {\fontsize{12}{14}\selectfont Instituto de Ciências Biomédicas\par}
+    \vspace*{2.2cm}
+    {\fontsize{12}{14}\selectfont \MakeUppercase{\ABNTautor}\par}
+    \vfill
+    {\fontsize{14}{16}\selectfont\textbf{\ABNTtitulo}\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont Orientador: Prof. Dr. Walter Chesnut\par}
+    \vfill
+    {\fontsize{12}{14}\selectfont\ABNTlocal\par}
+    {\fontsize{12}{14}\selectfont \ABNTdata\par}
+  \end{capa}%
+}
+\makeatother
+
+% Sumário (tamanho uniforme + pontilhado denso)
+\makeatletter
+\setlength{\cftbeforesecskip}{2pt}
+\setlength{\cftbeforesubsecskip}{1pt}
+\makeatother
+
+\begin{document}
+\imprimircapa
+\imprimirfolhaderosto*
+
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+\listoffigures*
+\cleardoublepage
+\listoftables*
+\cleardoublepage
+
+$body$
+
+$if(bibliography)$
+\bibliographystyle{abntex2-alf}
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$endif$
+
+\end{document}
+% --- Idioma dinâmico (PT/EN) ---
+\usepackage{polyglossia}
+\ifdefined\ABNTlang
+  \setdefaultlanguage{\ABNTlang}
+\else
+  \setdefaultlanguage{brazil}
+\fi
+% --- Guards para comprimentos do tocloft (caso não existam) ---
+\makeatletter
+\makeatother
+% --- Forçar seção como nível 1 (sem capítulo 0) ---
+\setcounter{secnumdepth}{3}   % numerar até subseção
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+% --- Garantir níveis no sumário até subseção ---
+\setcounter{tocdepth}{3}
+% --- Níveis de numeração e sumário (sem depender de tocloft) ---
+\AtBeginDocument{%
+  \setcounter{tocdepth}{3}
+  \setcounter{secnumdepth}{3}
+  \renewcommand{\thesection}{\arabic{section}}
+  \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+  \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+}

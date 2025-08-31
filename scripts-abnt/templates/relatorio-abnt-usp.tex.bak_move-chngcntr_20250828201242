@@ -1,6 +1,4 @@
-\PassOptionsToPackage{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,filecolor=blue}{hyperref}
 \documentclass{abntex2}
-\usepackage{chngcntr}
 \usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
 
 % Fontes
@@ -47,12 +45,9 @@ $if(lang)$\setdefaultlanguage{$lang$}$else$\setdefaultlanguage{brazil}$endif$
 \makeatletter
 \makeatother
 
-\usepackage{longtable}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{multirow}
 \begin{document}
 % === FIXA NUMERAÇÃO DAS SEÇÕES (sem capítulo) ===
+\usepackage{chngcntr}
 \counterwithout{section}{chapter}
 \counterwithout{subsection}{chapter}
 \counterwithout{subsubsection}{chapter}
@@ -61,9 +56,6 @@ $if(lang)$\setdefaultlanguage{$lang$}$else$\setdefaultlanguage{brazil}$endif$
 \renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
-
-\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
-\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
 
 \pretextual
 \imprimircapa
@@ -155,53 +147,93 @@ $endif$
 }
 \makeatother
 % --- Numeração de seção no topo (sem capítulo) ---
+\usepackage{chngcntr}
 \makeatletter
 \AtBeginDocument{%
+  \counterwithout{section}{chapter}%
+  \counterwithout{subsection}{chapter}%
+  \counterwithout{subsubsection}{chapter}%
+  \renewcommand{\thesection}{\arabic{section}}%
   \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}%
   \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}%
+  \setcounter{secnumdepth}{3}%
+  \setcounter{tocdepth}{3}%
   \setsecnumformat{\csname the#1\endcsname\quad}%
 }
 \makeatother
 % --- Corrigir numeração: remover prefixo "0." ---
 \makeatletter
 \setsecnumdepth{section}        % seção é o nível mais alto
+\setcounter{secnumdepth}{3}     % numerar até subsubseção
+\setcounter{tocdepth}{3}        % incluir até subsubseção no sumário
+\renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 \makeatother
 % --- Numeração sem capítulo (teste validado) ---
 \makeatletter
 \setsecnumdepth{section}        % seção = nível mais alto
+\setcounter{secnumdepth}{3}     % numerar até subsubseção
+\setcounter{tocdepth}{3}        % incluir até subsubseção no sumário
+\renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 \makeatother
 % --- Forçar seção como nível 1 (sem capítulo fantasma) ---
 \makeatletter
+\counterwithout{section}{chapter}
+\counterwithout{subsection}{chapter}
+\counterwithout{subsubsection}{chapter}
 \setcounter{section}{0}  % garante que comece do 1
+\renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 \makeatother
 % === Fix: numeração sem capítulo (elimina 0.x) ===
+\usepackage{chngcntr}
 \AtBeginDocument{%
+  \counterwithout{section}{chapter}%
+  \counterwithout{subsection}{chapter}%
+  \counterwithout{subsubsection}{chapter}%
   \setsecnumdepth{section}% memoir: topo = section
+  \setcounter{secnumdepth}{3}% até subsubsection
+  \setcounter{tocdepth}{3}% até subsubsection no sumário
+  \renewcommand{\thesection}{\arabic{section}}%
   \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}%
   \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}%
 }
 
 % === NUMERAÇÃO SEM CAPÍTULO (ABNTEX2/MEMOIR) ===
+\usepackage{chngcntr}
 \AtBeginDocument{%
+  \counterwithout{section}{chapter}%
+  \counterwithout{subsection}{chapter}%
+  \counterwithout{subsubsection}{chapter}%
   \setsecnumdepth{section}% seção = nível superior
+  \setcounter{secnumdepth}{3}% numera até subsubsection
+  \setcounter{tocdepth}{3}% inclui até subsubsection no sumário
+  \renewcommand{\thesection}{\arabic{section}}%
   \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}%
   \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}%
 }
 
 % === NUMERAÇÃO SEM CAPÍTULO (fix 0.x no ToC) ===
+\usepackage{chngcntr}
 \makeatletter
 \AtBeginDocument{%
   % Remove dependência de capítulo
+  \counterwithout{section}{chapter}%
+  \counterwithout{subsection}{chapter}%
+  \counterwithout{subsubsection}{chapter}%
   % Remove prefixo de capítulo na representação (evita "0.")
   \renewcommand{\thechapter}{}%
   % Profundidade e formato
   \setsecnumdepth{section}%
+  \setcounter{secnumdepth}{3}%
+  \setcounter{tocdepth}{3}%
+  \renewcommand{\thesection}{\arabic{section}}%
   \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}%
   \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}%
 }
@@ -210,32 +242,20 @@ $endif$
 % === AJUSTE FINAL DE NUMERAÇÃO (remove prefixo 0.) ===
 \AtBeginDocument{%
   % Seções independentes de capítulos
+  \counterwithout{section}{chapter}%
+  \counterwithout{subsection}{chapter}%
+  \counterwithout{subsubsection}{chapter}%
 
   % Profundidade
   \setsecnumdepth{section}%
+  \setcounter{secnumdepth}{3}%
+  \setcounter{tocdepth}{3}%
 
   % Formato da numeração
+  \renewcommand{\thesection}{\arabic{section}}%
   \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}%
   \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}%
 
   % Corrige início (sem 0.)
   \setcounter{section}{0}%
 }
-
-% esconder bordas dos links
-
-% links sem borda/cores
-
-% Links invisíveis (sem caixas nem cores)
-
-% === Links azuis discretos (mais utilizado) ===
-\usepackage{hyperref}
-  colorlinks=true,
-  linkcolor=blue,   % cor de links internos (sumário, figuras, etc.)
-  citecolor=blue,   % cor das citações/bibliografia
-  urlcolor=blue,    % cor dos links externos
-  filecolor=blue    % cor de links para arquivos locais
-}
-
-% Links azuis discretos
-\AtBeginDocument{\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue, filecolor=blue}}

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+bash scripts-abnt/bin/lint_atas.sh || { echo "Corrija as atas antes do commit."; exit 1; }
+bash scripts-abnt/bin/build_index_atas.sh
+git add docs/atas/README.md docs/atas/INDEX.md

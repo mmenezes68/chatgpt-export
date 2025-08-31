@@ -1,0 +1,20 @@
+---
+titulo: "Capítulo 3 — O que é um Correlato Neural da Consciência?"
+obra: "O Caráter da Consciência"
+autor: "David J. Chalmers"
+data_leitura: "2025-08-20"
+lingua: "pt"
+tipo: "00_intro"
+tags: ["consciência", "correlatos neurais", "neurociência", "explicação da mente"]
+interlinks:
+  - [[Problema_Dificil]]
+  - [[Correlatos_Neurais]]
+  - [[Teorias_da_Consciência]]
+---# Introdução — Capítulo 3Este capítulo examina o conceito de **correlato neural da consciência (CNC)**, discutindo seu papel em uma ciência da mente.Chalmers destaca três pontos centrais:1. **Definição do CNC**  
+   - Um correlato neural da consciência é um estado ou processo neural que ocorre **sempre que** uma experiência consciente específica ocorre.  
+   - Não implica identidade ou redução, mas uma relação de correlação sistemática.2. **Importância metodológica**  
+   - Identificar CNCs é passo essencial para uma ciência empírica da consciência.  
+   - Permite mapear conexões entre estados fenomenais e mecanismos cerebrais, ainda que não explique por que tais mecanismos produzem experiência.3. **Limitações conceituais**  
+   - A noção de CNC não resolve o **problema difícil**, mas fornece uma ferramenta para restringir teorias.  
+   - A identificação de CNCs pode sugerir pistas sobre princípios psicofísicos mais fundamentais.---## Objetivo do CapítuloElucidar a noção de **correlato neural** e mostrar como ela pode servir de base para investigações futuras sobre os fundamentos da consciência.  
+O CNC é visto como um ponto de partida metodológico, mas não como a explicação final.
