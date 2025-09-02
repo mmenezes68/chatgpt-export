@@ -25,3 +25,4 @@
 | 21 | Ata 021 — Onboarding do Usuário, Configuração por Parâmetros e Arquitetura de Microserviços Python (ABNT, bilíngue) | 2025-08-31   | [ata_021.md](ata_021.md) |
 | 22 | Ata 022 — Status dos Requisitos para Projeto Multiplataforma e Microserviços | 2025-08-31   | [ata_022.md](ata_022.md) |
 | 23 | Ata 023 — Status dos Requisitos para Projeto Multiplataforma e Microserviços | 2025-08-31   | [ata_023.md](ata_023.md) |
+| 24 | Ata 024 — Planejamento do Pipeline ABNTex2 e Microserviços | 2025-09-01   | [ata_024.md](ata_024.md) |
